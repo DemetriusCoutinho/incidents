@@ -1,0 +1,14 @@
+version: '1'
+services:
+  incidents:
+    container_name: incidents
+    build:
+      dockerfile: Dockerfile
+    image: incidents:latest
+    ports:
+      - 8080:8080
+    networks:
+      - incidents-network
+networks:
+  incidents-network:
+    driver: bridge
