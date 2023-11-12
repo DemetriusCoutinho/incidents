@@ -35,7 +35,7 @@ public class GlobalException extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
                         new ApiError(
-                                "Ocorreu um error Interno",
+                                "An internal error occurred",
                                 ex.getMessage()
                         )
                 );
@@ -50,7 +50,8 @@ public class GlobalException extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(
                         new ApiError(
-                                "Ocorreu um error Interno",
+                                "\n" +
+                                        "Unable to find resource",
                                 ex.getMessage()
                         )
                 );
