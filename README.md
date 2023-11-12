@@ -5,18 +5,20 @@ Project developed to check, create and delete incidents.
 ## Technologies used
 
 1. Spring Data Jpa
-   - H2 Database
-2. Spring Security 
-   - Basic in-memory authentication
-3. Mockito 
-   - For the construction of unit tests
-4. Spring Doc 
-   - Swagger for API documentation
+    - H2 Database
+2. Spring Security
+    - Basic in-memory authentication
+3. Mockito
+    - For the construction of unit tests
+4. Spring Doc
+    - Swagger for API documentation
 
 #### CommandLineStartup
 
     - An initial load of incidents was added to carry out the tests.
+
 Example:
+
 ```java
     public class CommandLineStartup implements CommandLineRunner {
     private final IncidentService service;
@@ -52,13 +54,19 @@ Example:
    echo '------------- Build Project ----------------'
    mvn install package
    echo '------------ Up with Docker Compose --------------'
-   docker-compose up --build
+   docker-compose up -d --build
    ```
+2. Users for Access
+    1. Admin Access
+        - username: admin
+        - password: password
+    2. User Access
+        - username: user
+        - password: password
 
 ## Project composition
 
-- Documentation Link {host}/swagger
-
+- Documentation Link **{host}/swagger**
 
     1. Create an incident
         - endpoint: POST {host}/v1/incidents
