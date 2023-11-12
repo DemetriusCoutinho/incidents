@@ -1,6 +1,7 @@
 package com.webservice.incidents.services;
 
 import com.webservice.incidents.controllers.handler.exceptions.BusinessException;
+import com.webservice.incidents.controllers.handler.exceptions.ItemNotFound;
 import com.webservice.incidents.controllers.models.Incident;
 import com.webservice.incidents.controllers.requests.IncidentRequest;
 import com.webservice.incidents.controllers.responses.IncidentResponse;
@@ -32,7 +33,7 @@ public class IncidentService {
             IncidentRequest updateRequest
     ) {
         Incident incident = repository.findByExternalId(UUID.fromString(externalId))
-                .orElseThrow(() -> new BusinessException("Incident Not Found"));
+                .orElseThrow(() -> new ItemNotFound("Incident Not Found"));
         incident.setUpdateAt();
         BeanUtils.copyProperties(updateRequest, incident);
         return repository.save(incident).fromModel();
@@ -40,7 +41,7 @@ public class IncidentService {
 
     public void delete(String externalId) {
         Incident incident = repository.findByExternalId(UUID.fromString(externalId))
-                .orElseThrow(() -> new BusinessException("Incident Not Found"));
+                .orElseThrow(() -> new ItemNotFound("Incident Not Found"));
         incident.updateClosedAt();
         repository.save(incident);
     }

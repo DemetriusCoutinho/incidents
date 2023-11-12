@@ -1,6 +1,7 @@
 package com.webservice.incidents.controllers.handler;
 
 import com.webservice.incidents.controllers.handler.exceptions.BusinessException;
+import com.webservice.incidents.controllers.handler.exceptions.ItemNotFound;
 import com.webservice.incidents.controllers.handler.responses.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,21 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     ) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                        new ApiError(
+                                "Ocorreu um error Interno",
+                                ex.getMessage()
+                        )
+                );
+    }
+
+    @ExceptionHandler(ItemNotFound.class)
+    public ResponseEntity<Object> handleExceptionInternal(
+            ItemNotFound ex,
+            WebRequest request
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(
                         new ApiError(
                                 "Ocorreu um error Interno",

@@ -1,10 +1,13 @@
 package com.webservice.incidents.services;
 
 import com.webservice.incidents.controllers.handler.exceptions.BusinessException;
+import com.webservice.incidents.controllers.handler.exceptions.ItemNotFound;
 import com.webservice.incidents.controllers.models.Incident;
 import com.webservice.incidents.controllers.models.IncidentProjection;
 import com.webservice.incidents.controllers.responses.IncidentResponse;
 import com.webservice.incidents.repositories.IncidentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ import java.util.UUID;
 @Service
 public class SearchIncidentService {
     private final IncidentRepository repository;
+    private final Logger logger = LoggerFactory.getLogger(SearchIncidentService.class);
 
     public SearchIncidentService(
             IncidentRepository repository
@@ -23,8 +27,9 @@ public class SearchIncidentService {
     }
 
     public IncidentResponse findById(String externalId) {
+        logger.info("ACTION=findById");
         return repository.findByExternalId(UUID.fromString(externalId))
-                .orElseThrow(() -> new BusinessException("Item not Found"))
+                .orElseThrow(() -> new ItemNotFound("Item not Found"))
                 .fromModel();
     }
 
@@ -35,7 +40,7 @@ public class SearchIncidentService {
                 .toList();
 
         if (incidents.isEmpty())
-            throw new BusinessException("Item not Found");
+            throw new ItemNotFound("Item not Found");
 
         return incidents;
     }
@@ -49,7 +54,7 @@ public class SearchIncidentService {
                 .toList();
 
         if (incidents.isEmpty())
-            throw new BusinessException("Item not Found");
+            throw new ItemNotFound("Item not Found");
 
         return incidents;
     }
