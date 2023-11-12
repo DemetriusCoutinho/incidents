@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/search/incidents")
+@RequestMapping("/v1/search/incidents")
 public class SearchIncidentController {
     private final SearchIncidentService service;
 

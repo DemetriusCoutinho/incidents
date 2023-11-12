@@ -60,7 +60,7 @@ public class Incident {
         this.updateAt = LocalDateTime.now();
     }
 
-    public void setClosedAt(LocalDateTime closedAt) {
-        this.closedAt = closedAt;
+    public void updateClosedAt() {
+        this.closedAt = LocalDateTime.now();
     }
 }

@@ -89,8 +89,8 @@ class IncidentServiceTest {
                         )
                 )
         );
-        doNothing().when(repository).delete(any());
+        when(repository.save(any())).thenReturn(new Incident());
         service.delete(UUID.randomUUID().toString());
-        verify(repository, times(1)).delete(any());
+        verify(repository, times(1)).save(any());
     }
 }

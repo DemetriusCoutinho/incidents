@@ -8,6 +8,7 @@ import com.webservice.incidents.repositories.IncidentRepository;
 import com.webservice.incidents.utils.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -40,6 +41,7 @@ public class IncidentService {
     public void delete(String externalId) {
         Incident incident = repository.findByExternalId(UUID.fromString(externalId))
                 .orElseThrow(() -> new BusinessException("Incident Not Found"));
-        repository.delete(incident);
+        incident.updateClosedAt();
+        repository.save(incident);
     }
 }

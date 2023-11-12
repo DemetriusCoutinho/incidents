@@ -1,2 +1,4 @@
-docker build -t incidents:0.0.1.
+echo '------------- Build Project ----------------'
+mvn install package
+echo '------------ Up with Docker Compose --------------'
 docker-compose up --build

@@ -5,10 +5,12 @@ import com.webservice.incidents.controllers.requests.IncidentUpdateRequest;
 import com.webservice.incidents.controllers.responses.IncidentResponse;
 import com.webservice.incidents.services.IncidentService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/incidents")
+@RequestMapping("/v1/incidents")
 public class IncidentController {
     private final IncidentService service;
 
@@ -34,6 +36,7 @@ public class IncidentController {
 
     @DeleteMapping("/id/{externalId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable String externalId) {
         service.delete(externalId);
     }
